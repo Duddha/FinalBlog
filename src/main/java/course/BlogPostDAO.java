@@ -118,5 +118,7 @@ public class BlogPostDAO {
 	// alternatively, you can use whatever you like but will need to make a couple of other 
 	// changes to templates and post retrieval code.
         System.out.println(permalink + " " + ordinal);
+        DBObject post = postsCollection.findAndModify(new BasicDBObject("permalink", permalink), null, null,  false,
+                new BasicDBObject("$inc", new BasicDBObject("comments." + ordinal + ".num_likes", 1)), true, true);
     }
 }
